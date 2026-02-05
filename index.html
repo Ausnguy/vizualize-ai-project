@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VizuAlize.ai | Austin Nguyen Project</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --uh-red: #c8102e;
+        --navy: #001a33;
+        --slate: #64748b;
+        --border: #e2e8f0;
+        --gradient: linear-gradient(135deg, #c8102e 0%, #900a1f 100%);
+        --glass: rgba(255, 255, 255, 0.95);
+      }
+
+      /* --- GLOBAL RESET & BASE STYLES --- */
+      * {
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        margin: 0;
+        background: #fff;
+        color: var(--navy);
+        line-height: 1.6;
+        overflow-x: hidden;
+        font-size: 16px;
+      }
+
+      /* --- RESPONSIVE TYPOGRAPHY --- */
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4.2rem);
+        line-height: 1.1;
+        margin: 20px 0;
+        letter-spacing: -1px;
+        color: var(--navy);
+      }
+
+      h2 {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        margin-top: 0;
+        letter-spacing: -1px;
+        margin-bottom: 25px;
+      }
+
+      p {
+        font-size: clamp(1rem, 2vw, 1.15rem);
+        color: #475569;
+        margin-bottom: 20px;
+        max-width: 800px;
+      }
+
+      /* --- BUTTONS --- */
+      .btn {
+        background: var(--gradient);
+        color: white;
+        padding: 16px 36px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(200, 16, 46, 0.25);
+        transition: transform 0.2s;
+        display: inline-block;
+        text-align: center;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      /* --- NAVIGATION --- */
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        border-bottom: 1px solid var(--border);
+        background: var(--glass);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-weight: 800;
+        color: var(--uh-red);
+        font-size: 1.5rem;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--navy);
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+        padding: 10px 5px;
+      }
+      .nav-links a:hover {
+        color: var(--uh-red);
+      }
+
+      /* --- LAYOUT UTILITIES --- */
+      section {
+        padding: 60px 8%;
+        border-bottom: 1px solid #f8fafc;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      /* --- HERO SECTION --- */
+      header {
+        padding: 100px 8% 60px;
+        background: radial-gradient(circle at top right, #fff5f5, #fff);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 50px;
+        align-items: center;
+      }
+
+      /* --- MOCKUP (GRAPHIC) --- */
+      .mockup {
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        padding: 25px;
+        border: 1px solid var(--border);
+        position: relative;
+        transform: none;
+        transition: transform 0.5s ease;
+        max-width: 100%;
+      }
+
+      .chart-bar {
+        height: 16px;
+        background: #f1f5f9;
+        border-radius: 8px;
+        margin: 20px 0;
+        overflow: hidden;
+      }
+      .chart-fill {
+        height: 100%;
+        background: var(--uh-red);
+        border-radius: 8px;
+      }
+
+      /* --- TAGS & LABELS --- */
+      .rubric-tag {
+        background: #fee2e2;
+        color: var(--uh-red);
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      /* --- FOUNDER STORY --- */
+      .founder-card {
+        background: var(--navy);
+        color: white;
+        padding: 40px 30px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .founder-card h3 {
+        color: white;
+      }
+      .founder-card p {
+        color: #cbd5e1;
+      }
+
+      /* --- FEATURE CARDS --- */
+      .feature-card {
+        padding: 25px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        transition: 0.3s;
+        background: #fff;
+        margin-bottom: 15px;
+      }
+
+      /* --- INTERACTIVE CONSOLE --- */
+      .console {
+        background: var(--navy);
+        padding: 30px 20px;
+        border-radius: 20px;
+        color: #94a3b8;
+        font-family: "Courier New", monospace;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        font-size: 0.9rem;
+        width: 100%;
+      }
+      .input-line {
+        display: flex;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex-wrap: wrap;
+      }
+      input {
+        background: transparent;
+        border: none;
+        color: white;
+        flex: 1;
+        outline: none;
+        font-size: 1rem;
+        font-family: inherit;
+        min-width: 150px;
+      }
+
+      /* --- COMPETITIVE QUADRANT (Responsive) --- */
+      .quadrant-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        width: 100%;
+        max-width: 500px;
+        aspect-ratio: 1 / 1;
+        border: 2px solid var(--navy);
+        position: relative;
+        background: #fafafa;
+        margin: 0 auto;
+      }
+      .quadrant-label {
+        position: absolute;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--navy);
+        letter-spacing: 1px;
+        background: rgba(250, 250, 250, 0.8);
+        padding: 2px 5px;
+      }
+      .q-top {
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+      }
+      .q-right {
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(90deg);
+        transform-origin: center right;
+      }
+
+      .dot {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      .dot::after {
+        content: attr(data-label);
+        position: absolute;
+        top: 22px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        white-space: nowrap;
+        color: var(--navy);
+      }
+
+      /* --- MARKET CHART --- */
+      .bar-chart {
+        display: flex;
+        align-items: flex-end;
+        height: 250px;
+        gap: 15px;
+        background: white;
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+      }
+      .bar-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+      }
+      .bar-visual {
+        width: 100%;
+        background: var(--navy);
+        border-radius: 6px 6px 0 0;
+        position: relative;
+        opacity: 0.3;
+        transition: 1s;
+      }
+      .bar-visual.active {
+        background: var(--uh-red);
+        opacity: 1;
+      }
+      .bar-val {
+        font-weight: 800;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+      }
+
+      footer {
+        padding: 40px 8%;
+        background: #f8fafc;
+        text-align: center;
+        color: var(--slate);
+        border-top: 1px solid var(--border);
+      }
+
+      /* --- MEDIA QUERIES --- */
+      @media (min-width: 900px) {
+        .grid-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+        header {
+          grid-template-columns: 1.2fr 1fr;
+          padding: 120px 8% 100px;
+        }
+        .mockup {
+          transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+        }
+        .mockup:hover {
+          transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+        section {
+          padding: 100px 8%;
+        }
+        .founder-card {
+          padding: 60px;
+        }
+        .bar-chart {
+          height: 300px;
+          gap: 30px;
+          padding: 30px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        nav {
+          flex-direction: column;
+          gap: 15px;
+        }
+        .nav-links {
+          width: 100%;
+          justify-content: center;
+          gap: 15px;
+          flex-wrap: wrap;
+        }
+        .input-line {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .btn {
+          width: 100%;
+        }
+        .quadrant-label {
+          font-size: 0.65rem;
+        }
+        .q-right {
+          right: -10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <span style="font-size: 1.8rem">⚡</span> VizuAlize.ai
+      </div>
+      <div class="nav-links">
+        <a href="#about">Founder</a>
+        <a href="#problem">Problem</a>
+        <a href="#product">Product</a>
+        <a href="#market">Market</a>
+      </div>
+    </nav>
+
+    <header>
+      <div class="hero-text">
+        <span class="rubric-tag">Bauer ENTR 3310 Project | Option 5</span>
+        <h1>Stop waiting for data reports. <br />Just ask.</h1>
+        <p>
+          The tool your data team is missing. No computer code, no complex
+          dashboards, and no waiting on analysts. Just type a question and get
+          the answer.
+        </p>
+        <button
+          class="btn"
+          onclick="document.getElementById('product').scrollIntoView()"
+        >
+          Try the Prototype
+        </button>
+        <div style="margin-top: 30px; font-size: 0.9rem; color: var(--slate)">
+          <strong>Founder:</strong> Austin Nguyen | University of Houston
+        </div>
+      </div>
+
+      <div class="mockup">
+        <div style="display: flex; gap: 10px; margin-bottom: 30px">
+          <div
+            style="
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              background: #ff5f56;
+            "
+          ></div>
+          <div
+            style="
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              background: #ffbd2e;
+            "
+          ></div>
+          <div
+            style="
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              background: #27c93f;
+            "
+          ></div>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+          "
+        >
+          <p
+            style="
+              font-weight: 800;
+              font-size: 0.9rem;
+              color: var(--navy);
+              margin: 0;
+            "
+          >
+            LIVE WAREHOUSE ANALYTICS
+          </p>
+          <span
+            style="
+              background: #ecfdf5;
+              color: #059669;
+              padding: 4px 10px;
+              border-radius: 20px;
+              font-size: 0.7rem;
+              font-weight: 700;
+            "
+            >● ONLINE</span
+          >
+        </div>
+        <div class="chart-bar">
+          <div class="chart-fill" style="width: 85%"></div>
+        </div>
+        <div class="chart-bar">
+          <div class="chart-fill" style="width: 62%"></div>
+        </div>
+        <div class="chart-bar">
+          <div class="chart-fill" style="width: 45%"></div>
+        </div>
+        <div
+          style="
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 30px;
+          "
+        >
+          <p style="font-size: 0.8rem; margin: 0; color: var(--slate)">
+            <strong>AI Insight:</strong> Q4 Revenue is projected to exceed
+            targets by 14% based on current velocity.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="founder-card">
+        <span class="rubric-tag">Founder's Narrative</span>
+        <h3>Why I Built This</h3>
+        <p>
+          As a student entering the workforce, I noticed a huge problem.
+          Companies collect massive amounts of data, but only a few people
+          actually know how to access it.
+        </p>
+        <p>
+          I watched smart managers wait 3–5 days just to get a simple sales
+          report because they had to request help from the technology
+          department. I realized that data shouldn't be locked behind a skill
+          barrier. If you can send a text, you should be able to get answers
+          from your database. That’s why I built VizuAlize.ai.
+        </p>
+      </div>
+    </section>
+
+    <section id="problem">
+      <div class="grid-2">
+        <div>
+          <span class="rubric-tag">Rubric: Problem Identification</span>
+          <h2>The "Analyst Bottleneck"</h2>
+          <p>
+            Right now, most decision-makers are stuck guessing because getting
+            hard data takes too long. If you don't know how to write code,
+            you're locked out.
+          </p>
+          <div style="margin-top: 30px">
+            <div
+              class="feature-card"
+              style="margin-bottom: 20px; border-left: 4px solid var(--uh-red)"
+            >
+              <strong
+                style="display: block; margin-bottom: 5px; font-size: 1.1rem"
+                >The Waiting Game</strong
+              >
+              <span style="color: var(--slate)"
+                >Managers are forced to rely on gut instinct because getting
+                data-backed answers takes 48–72 hours.</span
+              >
+            </div>
+            <div
+              class="feature-card"
+              style="border-left: 4px solid var(--navy)"
+            >
+              <strong
+                style="display: block; margin-bottom: 5px; font-size: 1.1rem"
+                >Wasted Money</strong
+              >
+              <span style="color: var(--slate)"
+                >Mid-sized firms lose an estimated
+                <strong>$1.2 million a year</strong> paying high-salary analysts
+                to answer basic questions instead of doing real strategy.</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div style="position: relative">
+          <div
+            style="
+              background: #f8fafc;
+              padding: 40px;
+              border-radius: 20px;
+              text-align: center;
+            "
+          >
+            <div style="font-size: 3rem; margin-bottom: 10px">⏳</div>
+            <h3>The Old Way</h3>
+            <p style="font-size: 0.9rem; margin: 0 auto; line-height: 2">
+              Request ➔ Ticket ➔ Wait in Line ➔ Code Written ➔ Dashboard ➔
+              <span style="color: var(--uh-red); font-weight: 700"
+                >3 Days Later</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="product" style="background: #fdfdfd">
+      <span class="rubric-tag">Rubric: Innovative AI Solution</span>
+      <h2>It’s not magic. It’s translation.</h2>
+      <p>
+        VizuAlize.ai connects you directly to your company's data storage (like
+        Snowflake or AWS). You type in plain English, and our software
+        translates it into the code the computer understands.
+      </p>
+
+      <div class="grid-2">
+        <div class="console">
+          <div style="display: flex; gap: 8px; margin-bottom: 20px">
+            <div
+              style="
+                width: 12px;
+                height: 12px;
+                background: #ef4444;
+                border-radius: 50%;
+              "
+            ></div>
+            <div
+              style="
+                width: 12px;
+                height: 12px;
+                background: #f59e0b;
+                border-radius: 50%;
+              "
+            ></div>
+            <div
+              style="
+                width: 12px;
+                height: 12px;
+                background: #22c55e;
+                border-radius: 50%;
+              "
+            ></div>
+          </div>
+          <div>> System Initialized...</div>
+          <div>> Connected to Enterprise Data Warehouse...</div>
+          <div>> AI Agent Ready. Waiting for query...</div>
+
+          <div class="input-line">
+            <span style="color: #22c55e; font-weight: bold">➜</span>
+            <input
+              type="text"
+              id="demoIn"
+              placeholder="Type: 'Why is profit down?'"
+            />
+            <button
+              onclick="runDemo()"
+              style="
+                background: var(--uh-red);
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: bold;
+              "
+            >
+              RUN
+            </button>
+          </div>
+          <div
+            id="demoOut"
+            style="margin-top: 25px; line-height: 1.6; min-height: 100px"
+          ></div>
+        </div>
+        <div>
+          <div class="feature-card">
+            <h3>1. Understands Business</h3>
+            <p style="font-size: 0.9rem; margin: 0">
+              It knows context. If you ask about "turnover," it knows to look at
+              Human Resources records and calculate the rates for you.
+            </p>
+          </div>
+          <div class="feature-card" style="margin-top: 20px">
+            <h3>2. Auto-Cleaning</h3>
+            <p style="font-size: 0.9rem; margin: 0">
+              It organizes the data automatically before showing it to you, so
+              you don't have to worry about messy spreadsheets.
+            </p>
+          </div>
+          <div class="feature-card" style="margin-top: 20px">
+            <h3>3. Accurate</h3>
+            <p style="font-size: 0.9rem; margin: 0">
+              Unlike ChatGPT, which can make up numbers, VizuAlize looks at your
+              actual company records. It doesn't guess; it looks up the facts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="market">
+      <div class="grid-2">
+        <div>
+          <span class="rubric-tag">Rubric: Market Opportunity</span>
+          <h2>A $54 Billion Shift</h2>
+          <p>
+            The business analytics industry is moving away from complex,
+            specialist tools toward self-service options. We are building for
+            the "Mid-Market"—companies that are too big for Excel but too small
+            to hire a 50-person data team.
+          </p>
+          <ul style="margin-top: 30px; line-height: 2">
+            <li>
+              <strong>Total Market Potential:</strong> $54 Billion (Global
+              Analytics by 2030)
+            </li>
+            <li>
+              <strong>Target:</strong> Mid-sized US Companies (500–2,000
+              Employees)
+            </li>
+            <li>
+              <strong>Trend:</strong> Moving from "Technical Reports" to
+              "Self-Service Tools"
+            </li>
+          </ul>
+        </div>
+        <div class="bar-chart">
+          <div class="bar-col">
+            <div class="bar-val">$18B</div>
+            <div class="bar-visual" style="height: 40%"></div>
+            <div style="margin-top: 10px; font-weight: 600; font-size: 0.8rem">
+              2023
+            </div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-val">$26B</div>
+            <div class="bar-visual" style="height: 60%"></div>
+            <div style="margin-top: 10px; font-weight: 600; font-size: 0.8rem">
+              Now
+            </div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-val" style="color: var(--uh-red)">$54B</div>
+            <div class="bar-visual active" style="height: 100%"></div>
+            <div
+              style="
+                margin-top: 10px;
+                font-weight: 700;
+                font-size: 0.8rem;
+                color: var(--uh-red);
+              "
+            >
+              2030
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="differentiation" style="background: #fafafa">
+      <span class="rubric-tag">Rubric: Differentiation & Uniqueness</span>
+      <h2 style="text-align: center">The Competitive Landscape</h2>
+      <p style="text-align: center; margin: 0 auto 50px">
+        Most competitors want you to build charts. We just want to give you
+        answers.
+      </p>
+
+      <div class="grid-2">
+        <div class="quadrant-container">
+          <div class="quadrant-label q-top">HIGH INTELLIGENCE (AI)</div>
+          <div class="quadrant-label q-right">EASE OF USE</div>
+          <div
+            style="
+              position: absolute;
+              top: 50%;
+              left: 0;
+              width: 100%;
+              height: 2px;
+              background: var(--navy);
+              opacity: 0.1;
+            "
+          ></div>
+          <div
+            style="
+              position: absolute;
+              left: 50%;
+              top: 0;
+              width: 2px;
+              height: 100%;
+              background: var(--navy);
+              opacity: 0.1;
+            "
+          ></div>
+
+          <div
+            class="dot"
+            data-label="Excel"
+            style="bottom: 20%; left: 20%; background: #217346"
+          ></div>
+          <div
+            class="dot"
+            data-label="Tableau"
+            style="top: 35%; left: 35%; background: #e97627"
+          ></div>
+          <div
+            class="dot"
+            data-label="VizuAlize.ai"
+            style="
+              top: 15%;
+              right: 15%;
+              background: var(--uh-red);
+              width: 26px;
+              height: 26px;
+              box-shadow: 0 0 25px rgba(200, 16, 46, 0.4);
+            "
+          ></div>
+        </div>
+
+        <div>
+          <div class="feature-card" style="margin-bottom: 20px">
+            <h4 style="margin: 0 0 10px 0">vs. Microsoft Excel</h4>
+            <p style="font-size: 0.9rem; margin: 0">
+              Excel is manual and breaks when you have too much data. VizuAlize
+              connects directly to your live system.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h4 style="margin: 0 0 10px 0">vs. Tableau/PowerBI</h4>
+            <p style="font-size: 0.9rem; margin: 0">
+              Tableau requires weeks of training to learn. VizuAlize requires
+              zero training—just English.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vision">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto">
+        <span class="rubric-tag">Rubric: Impact & Vision</span>
+        <h2>From Reactive to Proactive</h2>
+        <p>
+          Right now, we are fixing the backlog of data requests. But our
+          long-term goal is to be the
+          <strong>"Digital Assistant for Enterprise."</strong>
+        </p>
+        <p>
+          Eventually, VizuAlize won't just answer questions. It will tell you
+          what you need to know before you ask. Imagine waking up to a
+          notification:
+          <em
+            >"Alert: Supply costs in the West region jumped 12% overnight."</em
+          >
+          That’s the future we are building.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <p><strong>VizuAlize.ai</strong> | Student Project for ENTR 3310</p>
+      <p>University of Houston | Bauer College of Business</p>
+      <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.6">
+        © 2026 Austin Nguyen
+      </p>
+    </footer>
+
+    <script>
+      function runDemo() {
+        const out = document.getElementById("demoOut");
+        const input = document.getElementById("demoIn");
+
+        if (!input.value) return;
+
+        out.innerHTML =
+          "<span style='color:var(--accent);'>Processing natural language...</span>";
+
+        setTimeout(() => {
+          out.innerHTML =
+            "<span style='color:var(--accent);'>Checking sales records and logistics data...</span>";
+        }, 800);
+
+        setTimeout(() => {
+          out.innerHTML = `<span style="color:#22c55e;"><strong>> INSIGHT GENERATED:</strong></span><br>
+            Analysis shows a <strong>14% drop in profit</strong> due to increased logistics costs in the warehouse sector.<br><br> 
+            <em>Recommendation:</em> Review supplier contracts in the Houston region.`;
+        }, 2200);
+      }
+    </script>
+  </body>
+</html>
